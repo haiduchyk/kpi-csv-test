@@ -48,7 +48,9 @@ public class MigrationTests
         ResultSet result = executeQuery("select count(*), \"ContactTitle\" from customers group by \"ContactTitle\"");
         CsvParser stream = new CsvParser(new FileOutputStream(basePath + "result2.csv"));
         stream.extractData(result);
-        IsEqual("expected2.csv", "result2.csv", "log2.txt");
+        var isEqual = IsEqual("expected2.csv", "result2.csv", "log2.txt");
+        Assert.assertTrue(isEqual);
+
     }
 
     private ResultSet executeQuery(String query) throws SQLException
